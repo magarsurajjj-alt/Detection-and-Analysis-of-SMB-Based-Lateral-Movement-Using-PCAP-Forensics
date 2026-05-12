@@ -38,7 +38,7 @@ SMB protocol identified using TCP port:
 tcp.port == 445
 
 File-sharing communication observed between internal hosts.
-
+```
 🖥️ Source System (SMB Requester)
 IP Address: 192.168.1.111
 Behavior:
