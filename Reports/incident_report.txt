@@ -1,0 +1,83 @@
+1. 🧠 Executive Summary (MOST IMPORTANT)
+
+Write this in simple SOC language:
+
+This investigation analyzes SMB (Server Message Block) traffic captured in a PCAP file to identify potential lateral movement activity within an internal network. Suspicious authentication attempts were observed between two internal hosts, including repeated login failures and NTLM authentication usage, indicating possible credential abuse or probing activity.
+
+2. 🎯 Scope of Investigation
+
+Define what you analyzed:
+
+PCAP file containing internal network traffic
+SMB (TCP port 445) communication
+NTLM authentication sessions
+Internal host-to-host communication
+3. 🌐 Network Overview
+
+Include key systems:
+
+Source Host: 192.168.1.111
+Destination Host: 192.168.1.4
+Protocol: SMB (TCP 445)
+Authentication Method: NTLM
+4. 🔍 Timeline of Events (VERY IMPORTANT FOR SOC)
+
+Example:
+
+Time	Event
+T1	SMB session initiated from 192.168.1.111
+T2	NTLM authentication request observed
+T3	Multiple authentication failures detected
+T4	STATUS_LOGON_FAILURE returned by target
+T5	Repeated login attempts observed
+5. 🔐 Technical Findings
+
+Explain what you observed:
+
+SMB traffic detected on TCP port 445
+NTLM authentication messages exchanged between hosts
+Multiple authentication attempts failed
+SMB response returned STATUS_LOGON_FAILURE (0xC000006D)
+Username observed: kali
+One internal host attempted connections to another system
+6. 🚨 Indicators of Compromise (IOCs)
+
+List clearly:
+
+Source IP: 192.168.1.111
+Destination IP: 192.168.1.4
+Username: kali
+Protocol: SMB (TCP 445)
+Error: STATUS_LOGON_FAILURE
+NTLM authentication attempts
+7. 🧠 Security Analysis (SOC Interpretation)
+
+Explain meaning (this is what interviewers care about):
+
+Repeated SMB authentication failures suggest credential probing or brute force activity
+NTLM authentication indicates Windows-based authentication mechanism
+One host attempting SMB access to another internal host may indicate lateral movement
+Activity is consistent with:
+credential misuse
+penetration testing
+or potential internal compromise
+8. 🧩 MITRE ATT&CK Mapping
+Technique	ID	Description
+Lateral Movement via SMB	T1021.002	Remote SMB access
+Brute Force	T1110	Repeated login attempts
+Valid Accounts	T1078	Credential-based access
+9. 🛡️ Conclusion
+
+Write a clear final judgment:
+
+The observed SMB activity indicates suspicious authentication attempts between internal hosts. Multiple failed logins and NTLM authentication patterns suggest potential credential abuse or lateral movement attempts. Further investigation is recommended to determine whether this activity is malicious or part of authorized testing.
+
+10. 🔧 Recommendations
+
+Always include this:
+
+Monitor SMB traffic (TCP 445) for anomalies
+Alert on repeated STATUS_LOGON_FAILURE events
+Restrict lateral SMB access between endpoints
+Implement account lockout policies
+Enable centralized logging (SIEM integration)
